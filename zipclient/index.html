@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>INFO 344</title>
+
+    <!-- fetch() polyfill, version 2.0.1 -->
+    <!-- This is for browsers that don't have the feature yet -->
+    <!-- for the most recent version, see https://cdnjs.com/libraries/fetch -->
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.1/fetch.min.js"></script>
+    -->
+    <!-- your script -->
+    <!--
+    <script src="js/app.js"></script>
+    -->
+
+</head>
+<body>
+    <form id="comment-form">
+        First name: <input id="namefield" type="text" name="name"><br>
+    </form>
+    <button>Submit</button>
+
+    <script>
+        var submitBtn = document.querySelector('button');
+        submitBtn.addEventListener('click', postSomething);
+        function postSomething () {
+            fetch('http://localhost:4000/hello?name=' + document.getElementById('namefield').value, {
+                method: 'GET',
+            }).then(function(response){
+                if(response.ok){
+                    return response.text();
+                } else {
+                    return response.text()
+                    .then(function(errorMessage) {
+                        throw new Error(errorMessage)
+                    });
+                }
+            })
+            .then(function(data) {
+                console.log(document.getElementById('comment-form'));
+                console.log(data);
+            })
+            .catch(function(err) {
+                console.error(err);
+                alert(err.message);
+            });
+        }
+    </script>
+
+    <!--
+    send it to localhost:4000/hello?name=...(whatever they typed in)
+    every second, request localhost:4000/memory
+    Display Alloc field somewhere on the page 
+    -->
+</body>
+</html>
