@@ -6,43 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>INFO 344</title>
 
-    <!-- fetch() polyfill, version 2.0.1 -->
-    <!-- This is for browsers that don't have the feature yet -->
-    <!-- for the most recent version, see https://cdnjs.com/libraries/fetch -->
-    <!--
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.1/fetch.min.js"></script>
-    -->
-    <!-- your script -->
-    <!--
-    <script src="js/app.js"></script>
-    -->
-
 </head>
 <body>
-    <form id="comment-form">
-        First name: <input id="namefield" type="text" name="name"><br>
+    <form id="city_form">
+        City: <input id="cityfield" type="text" name="name"><br>
     </form>
     <button>Submit</button>
+    <table id="potato"></table>
 
     <script>
         var submitBtn = document.querySelector('button');
         submitBtn.addEventListener('click', postSomething);
         function postSomething () {
-            fetch('http://localhost:4000/hello?name=' + document.getElementById('namefield').value, {
+            fetch('http://localhost:4000/zips/' + document.getElementById('cityfield').value, {
                 method: 'GET',
             }).then(function(response){
                 if(response.ok){
-                    return response.text();
+                    return response.json();
                 } else {
-                    return response.text()
+                    return response.json()
                     .then(function(errorMessage) {
                         throw new Error(errorMessage)
                     });
                 }
             })
             .then(function(data) {
-                console.log(document.getElementById('comment-form'));
-                console.log(data);
+                console.log(data[0]);
+                var table = document.getElementById('potato')
+                for(var i = 0; i < data.length; i++) {
+                    var row = table.insertRow(i);
+                    row.insertCell(0).innerHTML = data[i].Code
+                    console.log(data[i]);
+                }
             })
             .catch(function(err) {
                 console.error(err);
