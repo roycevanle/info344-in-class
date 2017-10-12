@@ -31,13 +31,13 @@
                 }
             })
             .then(function(data) {
-                console.log(data[0]);
-                var table = document.getElementById('potato')
-                for(var i = 0; i < data.length; i++) {
-                    var row = table.insertRow(i);
-                    row.insertCell(0).innerHTML = data[i].Code
-                    console.log(data[i]);
-                }
+                console.log(data);
+                //var table = document.getElementById('potato')
+                // for(var i = 0; i < data.length; i++) {
+                //     var row = table.insertRow(i);
+                //     row.insertCell(0).innerHTML = data[i].Code
+                //     console.log(data[i]);
+                // }
             })
             .catch(function(err) {
                 console.error(err);
